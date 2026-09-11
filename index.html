@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>💕 我们的婚礼邀请</title>
+    <!-- 注意：如需在微信分享时显示缩略图，请替换下面 og:image 为你的图片链接 -->
+    <meta property="og:image" content="https://picsum.photos/300/300?random=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #fbe9e7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .card {
+            max-width: 420px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 24px 20px 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.3), transparent 70%);
+            border-radius: 50%;
+        }
+
+        /* ===== 照片轮播 ===== */
+        .carousel {
+            position: relative;
+            width: 100%;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            background: #faf0f0;
+            aspect-ratio: 3 / 4; /* 竖屏照片比例 */
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.4s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-color: #f5e6e6;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: #ff6f91;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        /* ===== 新人姓名 ===== */
+        .names {
+            margin-top: 24px;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: #3d2c2c;
+        }
+
+        .names span {
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .ampersand {
+            font-size: 22px;
+            color: #d4a5a5;
+            margin: 0 8px;
+        }
+
+        /* ===== 婚期 & 地点 ===== */
+        .info {
+            margin-top: 16px;
+            color: #5a4a4a;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .info .label {
+            font-weight: 500;
+            color: #7a5a5a;
+            margin-right: 4px;
+        }
+
+        .info .date {
+            font-size: 20px;
+            font-weight: 500;
+            color: #b3415c;
+            letter-spacing: 1px;
+        }
+
+        .info .lunar {
+            font-size: 14px;
+            color: #9a7a7a;
+            margin-left: 6px;
+        }
+
+        .info .address {
+            margin-top: 4px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .info .address i {
+            font-style: normal;
+            font-size: 18px;
+        }
+
+        /* ===== 寄语 ===== */
+        .message {
+            margin: 20px 0 16px;
+            font-size: 15px;
+            color: #6a5a5a;
+            border-top: 1px solid #f0e0e0;
+            padding-top: 16px;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ===== 音乐按钮 ===== */
+        .music-btn {
+            margin-top: 12px;
+            background: #ff6f91;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 16px rgba(255, 111, 145, 0.35);
+            cursor: pointer;
+            transition: all 0.3s;
+            touch-action: manipulation;
+        }
+
+        .music-btn:active {
+            transform: scale(0.96);
+        }
+
+        .music-btn.playing {
+            background: #b3415c;
+        }
+
+        /* ===== 底部 ===== */
+        .footer {
+            margin-top: 24px;
+            font-size: 13px;
+            color: #b09a9a;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #d48a8a;
+            text-decoration: none;
+        }
+
+        /* ===== 占位图片替换说明 ===== */
+        .placeholder-note {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+
+        <!-- 照片轮播 -->
+        <div class="carousel" id="carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <!-- ★★★ 请将下面 background-image 的 URL 替换为你的婚纱照链接 ★★★ -->
+                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding1/600/800');"></div>
+                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding2/600/800');"></div>
+                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding3/600/800');"></div>
+            </div>
+            <div class="carousel-indicators" id="indicators">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
+        </div>
+
+        <!-- 新人姓名 -->
+        <div class="names">
+            <span>张 三</span>
+            <span class="ampersand">&</span>
+            <span>李 四</span>
+        </div>
+
+        <!-- 婚期 & 地点 -->
+        <div class="info">
+            <div>
+                <span class="label">📅 婚期</span>
+                <span class="date">2026年9月26日</span>
+                <span class="lunar">（农历八月十六）</span>
+            </div>
+            <div class="address">
+                <span>📍</span>
+                <span>某某酒店 · 百合厅</span>
+            </div>
+        </div>
+
+        <!-- 爱情寄语 -->
+        <div class="message">
+            “ 愿有岁月可回首，且以深情共白头 ”
+        </div>
+
+        <!-- 音乐按钮 (微信需用户点击才播放) -->
+        <button class="music-btn" id="musicBtn">🎵 播放音乐</button>
+
+        <!-- 底部 -->
+        <div class="footer">
+            <p>❀ 诚邀您的见证 ❀</p>
+            <p style="margin-top:4px; font-size:12px; color:#c0a8a8;">
+                点击照片可切换浏览 · 点击音乐播放
+            </p>
+        </div>
+    </div>
+
+    <!-- 背景音乐（默认不自动播放） -->
+    <audio id="bgMusic" loop preload="none">
+        <!-- ★★★ 请将 src 替换为你自己的音乐链接（MP3） ★★★ -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
+    </audio>
+
+    <script>
+        (function() {
+            // ===== 轮播逻辑 =====
+            const inner = document.getElementById('carouselInner');
+            const dots = document.querySelectorAll('.dot');
+            let currentIndex = 0;
+            const total = dots.length;
+
+            function goTo(index) {
+                if (index < 0) index = total - 1;
+                if (index >= total) index = 0;
+                currentIndex = index;
+                inner.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            // 点击指示器切换
+            dots.forEach(dot => {
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const idx = parseInt(this.dataset.index);
+                    goTo(idx);
+                });
+            });
+
+            // 点击照片区域切换
+            const carousel = document.getElementById('carousel');
+            carousel.addEventListener('click', function(e) {
+                // 如果点的是指示器，不触发（已处理）
+                if (e.target.classList.contains('dot') || e.target.closest('.dot')) return;
+                goTo(currentIndex + 1);
+            });
+
+            // ===== 音乐控制 =====
+            const musicBtn = document.getElementById('musicBtn');
+            const audio = document.getElementById('bgMusic');
+            let isPlaying = false;
+
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    audio.pause();
+                    musicBtn.textContent = '🎵 播放音乐';
+                    musicBtn.classList.remove('playing');
+                } else {
+                    // 微信需要用户手势才能播放
+                    audio.play().then(() => {
+                        musicBtn.textContent = '⏸️ 暂停音乐';
+                        musicBtn.classList.add('playing');
+                        isPlaying = true;
+                    }).catch(err => {
+                        // 如果播放失败，提示用户手动点击
+                        alert('请点击“播放音乐”按钮手动播放（微信需用户交互）');
+                        console.warn('播放失败:', err);
+                    });
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // 音频播放结束后重置按钮状态（如果loop失效）
+            audio.addEventListener('ended', function() {
+                if (audio.loop) return;
+                musicBtn.textContent = '🎵 播放音乐';
+                musicBtn.classList.remove('playing');
+                isPlaying = false;
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
