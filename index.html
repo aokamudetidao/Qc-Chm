@@ -4,14 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>💕 我们的婚礼邀请</title>
-    <!-- 分享缩略图：已替换为你上传的第一张照片 -->
     <meta property="og:image" content="1.jpg">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
@@ -56,7 +51,7 @@
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             background: #faf0f0;
-            aspect-ratio: 3 / 4; /* 竖屏照片比例，如果照片是横屏，请改成 4 / 3 */
+            aspect-ratio: 3 / 4;
         }
 
         .carousel-inner {
@@ -106,18 +101,10 @@
             color: #3d2c2c;
         }
 
-        .names span {
-            display: inline-block;
-            margin: 0 4px;
-        }
+        .names span { display: inline-block; margin: 0 4px; }
+        .ampersand { font-size: 22px; color: #d4a5a5; margin: 0 8px; }
 
-        .ampersand {
-            font-size: 22px;
-            color: #d4a5a5;
-            margin: 0 8px;
-        }
-
-        /* ===== 婚期 & 地点 ===== */
+        /* ===== 婚期 & 地点 (优化排版) ===== */
         .info {
             margin-top: 16px;
             color: #5a4a4a;
@@ -138,14 +125,17 @@
             letter-spacing: 1px;
         }
 
+        /* 关键修改：让农历单独占一行，避免被截断 */
         .info .lunar {
             font-size: 14px;
             color: #9a7a7a;
-            margin-left: 6px;
+            display: block;
+            margin-top: 4px;
+            margin-left: 0;
         }
 
         .info .address {
-            margin-top: 4px;
+            margin-top: 8px;
             font-size: 16px;
             display: flex;
             align-items: center;
@@ -153,10 +143,7 @@
             gap: 4px;
         }
 
-        .info .address i {
-            font-style: normal;
-            font-size: 18px;
-        }
+        .info .address i { font-style: normal; font-size: 18px; }
 
         /* ===== 寄语 ===== */
         .message {
@@ -188,13 +175,8 @@
             touch-action: manipulation;
         }
 
-        .music-btn:active {
-            transform: scale(0.96);
-        }
-
-        .music-btn.playing {
-            background: #b3415c;
-        }
+        .music-btn:active { transform: scale(0.96); }
+        .music-btn.playing { background: #b3415c; }
 
         /* ===== 底部 ===== */
         .footer {
@@ -204,25 +186,15 @@
             letter-spacing: 1px;
         }
 
-        .footer a {
-            color: #d48a8a;
-            text-decoration: none;
-        }
-
-        /* ===== 占位图片替换说明 ===== */
-        .placeholder-note {
-            display: none;
-        }
+        .footer a { color: #d48a8a; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="card">
-
         <!-- 照片轮播 -->
         <div class="carousel" id="carousel">
             <div class="carousel-inner" id="carouselInner">
-                <!-- ★★★ 已替换为你上传的 6 张照片（相对路径） ★★★ -->
                 <div class="carousel-item" style="background-image: url('1.jpg');"></div>
                 <div class="carousel-item" style="background-image: url('2.jpg');"></div>
                 <div class="carousel-item" style="background-image: url('3.jpg');"></div>
@@ -231,7 +203,6 @@
                 <div class="carousel-item" style="background-image: url('6.jpg');"></div>
             </div>
             <div class="carousel-indicators" id="indicators">
-                <!-- 指示器也同步增加到了 6 个 -->
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
                 <span class="dot" data-index="2"></span>
@@ -253,8 +224,8 @@
             <div>
                 <span class="label">📅 婚期</span>
                 <span class="date">2026年10月3日</span>
-                <span class="lunar">（农历八月廿三）</span>
             </div>
+            <span class="lunar">（农历八月二十三）</span>
             <div class="address">
                 <span>📍</span>
                 <span>湖北石首 · 大垸镇古长堤村</span>
@@ -266,7 +237,7 @@
             “ 愿有岁月可回首，且以深情共白头 ”
         </div>
 
-        <!-- 音乐按钮 (微信需用户点击才播放) -->
+        <!-- 音乐按钮 -->
         <button class="music-btn" id="musicBtn">🎵 播放音乐</button>
 
         <!-- 底部 -->
@@ -278,10 +249,9 @@
         </div>
     </div>
 
-    <!-- 背景音乐（默认不自动播放） -->
+    <!-- 背景音乐：注意这里改成了 music.mp3 -->
     <audio id="bgMusic" loop preload="none">
-        <!-- ★★★ 已替换为你上传的 MP3 文件 ★★★ -->
-        <source src="陶喆+就是爱你.mp3" type="audio/mpeg">
+        <source src="music.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放。
     </audio>
 
@@ -303,7 +273,6 @@
                 });
             }
 
-            // 点击指示器切换
             dots.forEach(dot => {
                 dot.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -312,46 +281,68 @@
                 });
             });
 
-            // 点击照片区域切换
             const carousel = document.getElementById('carousel');
             carousel.addEventListener('click', function(e) {
-                // 如果点的是指示器，不触发（已处理）
                 if (e.target.classList.contains('dot') || e.target.closest('.dot')) return;
                 goTo(currentIndex + 1);
             });
 
-            // ===== 音乐控制 =====
+            // ===== 音乐控制 (优化版) =====
             const musicBtn = document.getElementById('musicBtn');
             const audio = document.getElementById('bgMusic');
             let isPlaying = false;
 
-            musicBtn.addEventListener('click', function() {
+            // 更新按钮UI的函数
+            function updateMusicBtn() {
                 if (isPlaying) {
-                    audio.pause();
+                    musicBtn.textContent = '⏸️ 暂停音乐';
+                    musicBtn.classList.add('playing');
+                } else {
                     musicBtn.textContent = '🎵 播放音乐';
                     musicBtn.classList.remove('playing');
-                } else {
-                    // 微信需要用户手势才能播放
-                    audio.play().then(() => {
-                        musicBtn.textContent = '⏸️ 暂停音乐';
-                        musicBtn.classList.add('playing');
-                        isPlaying = true;
-                    }).catch(err => {
-                        // 如果播放失败，提示用户手动点击
-                        alert('请点击“播放音乐”按钮手动播放（微信需用户交互）');
-                        console.warn('播放失败:', err);
-                    });
                 }
-                isPlaying = !isPlaying;
+            }
+
+            // 播放音乐的函数
+            function playMusic() {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    updateMusicBtn();
+                }).catch(err => {
+                    console.warn('播放失败:', err);
+                    isPlaying = false;
+                    updateMusicBtn();
+                });
+            }
+
+            // 按钮点击事件
+            musicBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    updateMusicBtn();
+                } else {
+                    playMusic();
+                }
             });
 
-            // 音频播放结束后重置按钮状态（如果loop失效）
-            audio.addEventListener('ended', function() {
-                if (audio.loop) return;
-                musicBtn.textContent = '🎵 播放音乐';
-                musicBtn.classList.remove('playing');
-                isPlaying = false;
-            });
+            // ===== 核心优化：首次触摸自动播放 =====
+            // 手机浏览器不允许直接自动播放，但可以在用户第一次触摸屏幕时触发播放
+            let hasAutoPlayed = false;
+            function autoPlayOnInteraction() {
+                if (!hasAutoPlayed && !isPlaying) {
+                    playMusic();
+                    hasAutoPlayed = true; // 只自动播放一次
+                }
+                // 移除监听器，避免重复触发
+                document.removeEventListener('touchstart', autoPlayOnInteraction);
+                document.removeEventListener('click', autoPlayOnInteraction);
+            }
+
+            // 监听全局的触摸和点击事件
+            document.addEventListener('touchstart', autoPlayOnInteraction);
+            document.addEventListener('click', autoPlayOnInteraction);
 
         })();
     </script>
