@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>💕 我们的婚礼邀请</title>
-    <!-- 注意：如需在微信分享时显示缩略图，请替换下面 og:image 为你的图片链接 -->
-    <meta property="og:image" content="https://picsum.photos/300/300?random=1">
+    <!-- 分享缩略图：已替换为你上传的第一张照片 -->
+    <meta property="og:image" content="1.jpg">
     <style>
         * {
             margin: 0;
@@ -56,7 +56,7 @@
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             background: #faf0f0;
-            aspect-ratio: 3 / 4; /* 竖屏照片比例 */
+            aspect-ratio: 3 / 4; /* 竖屏照片比例，如果照片是横屏，请改成 4 / 3 */
         }
 
         .carousel-inner {
@@ -222,35 +222,42 @@
         <!-- 照片轮播 -->
         <div class="carousel" id="carousel">
             <div class="carousel-inner" id="carouselInner">
-                <!-- ★★★ 请将下面 background-image 的 URL 替换为你的婚纱照链接 ★★★ -->
-                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding1/600/800');"></div>
-                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding2/600/800');"></div>
-                <div class="carousel-item" style="background-image: url('https://picsum.photos/seed/wedding3/600/800');"></div>
+                <!-- ★★★ 已替换为你上传的 6 张照片（相对路径） ★★★ -->
+                <div class="carousel-item" style="background-image: url('1.jpg');"></div>
+                <div class="carousel-item" style="background-image: url('2.jpg');"></div>
+                <div class="carousel-item" style="background-image: url('3.jpg');"></div>
+                <div class="carousel-item" style="background-image: url('4.jpg');"></div>
+                <div class="carousel-item" style="background-image: url('5.jpg');"></div>
+                <div class="carousel-item" style="background-image: url('6.jpg');"></div>
             </div>
             <div class="carousel-indicators" id="indicators">
+                <!-- 指示器也同步增加到了 6 个 -->
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
                 <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+                <span class="dot" data-index="5"></span>
             </div>
         </div>
 
         <!-- 新人姓名 -->
         <div class="names">
-            <span>张 三</span>
+            <span>瞿 晨</span>
             <span class="ampersand">&</span>
-            <span>李 四</span>
+            <span>陈 慧 敏</span>
         </div>
 
         <!-- 婚期 & 地点 -->
         <div class="info">
             <div>
                 <span class="label">📅 婚期</span>
-                <span class="date">2026年9月26日</span>
-                <span class="lunar">（农历八月十六）</span>
+                <span class="date">2026年10月3日</span>
+                <span class="lunar">（农历八月二十三）</span>
             </div>
             <div class="address">
                 <span>📍</span>
-                <span>某某酒店 · 百合厅</span>
+                <span>湖北石首 · 大垸镇古长堤村</span>
             </div>
         </div>
 
@@ -273,8 +280,8 @@
 
     <!-- 背景音乐（默认不自动播放） -->
     <audio id="bgMusic" loop preload="none">
-        <!-- ★★★ 请将 src 替换为你自己的音乐链接（MP3） ★★★ -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- ★★★ 已替换为你上传的 MP3 文件 ★★★ -->
+        <source src="陶喆+就是爱你.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放。
     </audio>
 
